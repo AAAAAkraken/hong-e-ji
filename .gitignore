@@ -1,0 +1,35 @@
+# 依赖
+node_modules/
+
+# 编译输出
+dist/
+release/
+
+# 数据库（你的聊天记录！）
+*.db
+
+# 聊天记录原始文件
+chat_raw.txt
+chat_import.json
+chat_labeled.txt
+
+# 导入工具脚本（临时文件）
+fix_labels.py
+labeled_import.py
+import_chat.py
+import_data.py
+parse_chat.py
+full_import.py
+
+# 保存的网页
+用户与AI助手*
+
+# 个人图标（你的照片）
+assets/icon.png
+assets/icon.ico
+assets/icon.svg
+
+# 系统文件
+.DS_Store
+Thumbs.db
+*.log
