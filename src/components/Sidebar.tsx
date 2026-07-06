@@ -8,6 +8,7 @@ interface SidebarProps {
   onSelect: (id: string) => void;
   onNew: () => void;
   onDelete: (id: string) => void;
+  onRename: (id: string, title: string) => void;
   onSettings: () => void;
   onImport: () => void;
 }
@@ -18,11 +19,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   onSelect,
   onNew,
   onDelete,
+  onRename,
   onSettings,
   onImport,
 }) => {
   const [search, setSearch] = useState('');
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editTitle, setEditTitle] = useState('');
 
   const filtered = conversations.filter(c =>
     c.title.toLowerCase().includes(search.toLowerCase())
@@ -81,7 +85,39 @@ const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => onSelect(conv.id)}
             >
               <div className="conversation-info">
-                <div className="conversation-title">{conv.title}</div>
+                {editingId === conv.id ? (
+                  <input
+                    className="rename-input"
+                    value={editTitle}
+                    onChange={e => setEditTitle(e.target.value)}
+                    onBlur={() => {
+                      if (editTitle.trim() && editTitle !== conv.title) {
+                        onRename(conv.id, editTitle.trim());
+                      }
+                      setEditingId(null);
+                    }}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter') {
+                        if (editTitle.trim() && editTitle !== conv.title) {
+                          onRename(conv.id, editTitle.trim());
+                        }
+                        setEditingId(null);
+                      }
+                      if (e.key === 'Escape') setEditingId(null);
+                    }}
+                    autoFocus
+                    onClick={e => e.stopPropagation()}
+                  />
+                ) : (
+                  <div
+                    className="conversation-title"
+                    onDoubleClick={() => {
+                      setEditingId(conv.id);
+                      setEditTitle(conv.title);
+                    }}
+                    title="双击重命名"
+                  >{conv.title}</div>
+                )}
                 <div className="conversation-time">{formatTime(conv.updatedAt)}</div>
               </div>
               <button

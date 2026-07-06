@@ -12,6 +12,7 @@ const App: React.FC = () => {
     currentId,
     messages,
     streamingContent,
+    streamingConvId,
     isStreaming,
     error,
     messagesEndRef,
@@ -20,6 +21,7 @@ const App: React.FC = () => {
     deleteCurrentConversation,
     sendMessage,
     importConversation,
+    renameConversation,
     setError,
   } = useChat();
 
@@ -67,11 +69,13 @@ const App: React.FC = () => {
         onNew={createNewConversation}
         onDelete={deleteCurrentConversation}
         onSettings={() => setShowSettings(true)}
+        onRename={renameConversation}
         onImport={handleImport}
       />
       <ChatWindow
         messages={messages}
         streamingContent={streamingContent}
+        streamingConvId={streamingConvId}
         isStreaming={isStreaming}
         error={error}
         currentId={currentId}

@@ -12,6 +12,8 @@
 - ✏️ 自定义 AI 名字和头像（支持上传照片）
 - 👤 自定义用户名字和头像
 - 🖼️ 自定义应用图标（设置 → 选择图标文件 → 重启生效）
+- ✍️ 双击对话标题重命名
+- 📐 支持 LaTeX 数学公式渲染（KaTeX）
 - 📥 支持从 JSON 文件导入聊天记录
 - 📎 支持发送文本文件让 AI 阅读
 - 🖼️ 支持图片附件占位提示，暂不支持图片识别
@@ -25,6 +27,7 @@
 | 前端 | React 18 + TypeScript |
 | 数据库 | SQLite（sql.js） |
 | API | DeepSeek API（OpenAI 兼容） |
+| 公式渲染 | KaTeX |
 | 打包 | electron-builder（NSIS 安装包） |
 
 ## 前置条件
@@ -78,6 +81,16 @@ JSON 文件格式如下：
 
 > `role` 必须是 `user`（用户）或 `assistant`（AI）。也支持纯消息数组格式（不含 `title`）。
 
+## 使用技巧
+
+**重命名对话：** 双击左侧对话列表中的任意标题，输入新名字后回车即可。
+
+**数学公式：** 对话中支持 LaTeX 公式渲染（KaTeX）：
+- 行内公式：`$E=mc^2$`
+- 独立公式：`$$\int_0^\infty x^2 dx$$`
+
+**导入聊天记录：** DeepSeek 分享页面 → 保存网页 → 提取对话内容，按上方 JSON 格式整理后导入。
+
 ### 打包为 exe
 
 **CMD：**
@@ -117,20 +130,23 @@ npm run pack
 
 ```
 deepseek-local-chat/
-├── electron/          # Electron 主进程
-│   ├── main.ts        # 应用入口，窗口管理
-│   ├── preload.ts     # IPC 安全桥接
-│   ├── database.ts    # SQLite 数据库
-│   ├── deepseek.ts    # DeepSeek API 流式调用
-│   └── import.ts      # 聊天记录导入
-├── src/               # React 前端
-│   ├── components/    # UI 组件
-│   ├── hooks/         # 状态管理
-│   └── styles/        # 样式文件
-├── assets/            # 图标资源（未包含在仓库中，请自行准备）
-├── package.json       # 项目配置
-├── tsconfig.json      # TypeScript 配置
-└── webpack.renderer.config.js  # Webpack 配置
+├── electron/             # Electron 主进程
+│   ├── main.ts           # 应用入口，窗口管理，IPC 注册
+│   ├── preload.ts        # IPC 安全桥接层
+│   ├── database.ts       # SQLite 数据库增删改查
+│   ├── deepseek.ts       # DeepSeek API 流式调用
+│   ├── import.ts         # 聊天记录 JSON 导入
+│   ├── types.ts          # 后端类型定义
+│   └── uuid.ts           # 唯一 ID 生成
+├── src/                  # React 前端
+│   ├── components/       # UI 组件（侧边栏、聊天、设置等 6 个）
+│   ├── hooks/            # 聊天状态管理 Hook
+│   └── styles/           # 样式文件（浅色主题，7 个 CSS）
+├── assets/               # 图标资源（未包含在仓库中，请自行准备）
+├── package.json          # 项目配置（依赖、脚本、打包）
+├── tsconfig.json         # TypeScript 配置（前端）
+├── tsconfig.electron.json # TypeScript 配置（后端）
+└── webpack.renderer.config.js  # Webpack 打包配置
 ```
 
 ## 隐私说明

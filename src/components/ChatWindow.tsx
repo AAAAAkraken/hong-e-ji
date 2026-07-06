@@ -7,6 +7,7 @@ import '../styles/ChatWindow.css';
 interface ChatWindowProps {
   messages: Message[];
   streamingContent: string;
+  streamingConvId: string | null;
   isStreaming: boolean;
   error: string | null;
   currentId: string | null;
@@ -22,6 +23,7 @@ interface ChatWindowProps {
 const ChatWindow: React.FC<ChatWindowProps> = ({
   messages,
   streamingContent,
+  streamingConvId,
   isStreaming,
   error,
   currentId,
@@ -67,7 +69,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
           />
         ))}
 
-        {isStreaming && (
+        {isStreaming && streamingConvId === currentId && (
           <div className="message-bubble assistant">
             <div className="message-avatar">
               {assistantAvatar.startsWith('data:')

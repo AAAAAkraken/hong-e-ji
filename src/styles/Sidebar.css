@@ -160,6 +160,18 @@
   gap: 8px;
 }
 
+/* 重命名输入框 */
+.rename-input {
+  width: 100%;
+  padding: 2px 6px;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  outline: none;
+}
+
 .btn-footer {
   flex: 1;
   padding: 8px 12px;
