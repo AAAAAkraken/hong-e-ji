@@ -91,6 +91,8 @@ JSON 文件格式如下：
 
 **导入聊天记录：** DeepSeek 分享页面 → 保存网页 → 提取对话内容，按上方 JSON 格式整理后导入。
 
+> 📝 不知道怎么写 JSON？用 [聊天记录转 JSON 工具](https://github.com/AAAAAkraken/chat-to-json)，粘贴文本自动生成。
+
 ### 打包为 exe
 
 **CMD：**
