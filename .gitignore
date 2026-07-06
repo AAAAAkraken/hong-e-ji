@@ -7,6 +7,10 @@ release/
 
 # 数据库（你的聊天记录！）
 *.db
+*.sqlite
+*.sqlite3
+.env
+.env.*
 
 # 聊天记录原始文件
 chat_raw.txt
@@ -28,6 +32,12 @@ full_import.py
 assets/icon.png
 assets/icon.ico
 assets/icon.svg
+assets/app_icon.*
+assets/*.png
+assets/*.jpg
+assets/*.jpeg
+assets/*.ico
+assets/*.svg
 
 # 系统文件
 .DS_Store
